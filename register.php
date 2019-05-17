@@ -24,4 +24,4 @@ if($user) {
  $_POST['password'] = md5($_POST['password']);
  $statement->execute($_POST);
 
-header('Location: http://localhost/tm/taskmanager/login-form.php'); exit;
+header('Location: login-form.php'); exit;

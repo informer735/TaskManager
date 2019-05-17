@@ -1,4 +1,11 @@
+<?php
+$pdo = new PDO('mysql:host=localhost; dbname=users', 'root', '');
+$sql = 'SELECT * FROM tasks';
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$tasks = $stmt->fetchAll(2);
 
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -58,22 +65,26 @@
       <div class="album py-5 bg-light">
         <div class="container">
 
+            <?php foreach ($tasks as $task): ?>
+
           <div class="row">
              <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
-                <img class="card-img-top" src="assets/img/no-image.jpg">
+                <img class="card-img-top" src="<?= $task['image']?>">
                 <div class="card-body">
-                  <p class="card-text">Lorem ipsum</p>
+                  <p class="card-text"><?= $task['text']?></p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <a href="#" class="btn btn-sm btn-outline-secondary">Подробнее</a>
                       <a href="#" class="btn btn-sm btn-outline-secondary">Изменить</a>
-                      <a href="#" class="btn btn-sm btn-outline-secondary" onclick="confirm('are you sure?')">Удалить</a>
+                      <a href="#" class="btn btn-sm btn-outline-secondary" onclick="confirm('Вы уверены?')">Удалить</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+              
+              <?php endforeach; ?>
             <!--<div class="col-md-4">
               <div class="card mb-4 shadow-sm">
                 <img class="card-img-top" src="assets/img/no-image.jpg">
