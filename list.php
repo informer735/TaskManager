@@ -79,8 +79,8 @@ $tasks = $stmt->fetchAll(2);
               <div class="card mb-4 shadow-sm">
                <img class="card-img-top" src="<?= $task['img']?>">
                 <div class="card-body">
-                    <p class="card-text"><?= $task['name']?></p
-                    <p class="card-text"><b><?= $task['text']?></b></p>
+                    <p class="card-text"><b><?= $task['name']?></b></p
+                    <p class="card-text"><?= $task['text']?></p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                       <a href="show.php" class="btn btn-sm btn-outline-secondary">Просмотреть</a>
