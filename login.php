@@ -15,7 +15,7 @@ $user = $stmt->execute($_POST);
 
 if ($user) {
     $_SESSION['userMail'] = $_POST['email'];
-    header('Location: index.php');
+    header('Location: list.php');
 } else {
     $errorMessage = "Не правильно введен логин или пароль";
     include 'errors.php';
