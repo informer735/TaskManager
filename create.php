@@ -18,7 +18,7 @@ $fileName = 'upload/' . $_FILES['userfile']['name'];
 move_uploaded_file($_FILES['userfile']['tmp_name'], $fileName);
 
 $pdo = new PDO('mysql:host=localhost; dbname=users', 'root', '');
-$sql = "INSERT INTO tasks (user_id, name, text, img) VALUE (:user_id, :name, :text, :img)";
+$sql = "INSERT INTO tasks (id, user_id, name, text, img) VALUE (NULL, :user_id, :name, :text, :img)";
 $stmt = $pdo->prepare($sql);
 $resault = $stmt->execute([
     ':user_id' => $userMail,
