@@ -12,7 +12,6 @@ $sql = 'SELECT id from users WHERE email=:email';
 $statement = $pdo->prepare($sql);
 $statement->execute(([':email' => $_POST['email']]));
 $user = $statement->fetchColumn();
-
 if($user) {
     $errorMessage = 'Пользователь с таким e-mail уже существует';
     include 'errors.php';

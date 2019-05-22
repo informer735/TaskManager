@@ -1,5 +1,4 @@
 <?php
-error_reporting(-1);
 session_start();
 $userMail = $_SESSION['userMail'];
 
@@ -71,29 +70,33 @@ $tasks = $stmt->fetchAll(2);
       <div class="album py-5 bg-light">
         <div class="container">
 
+            <div class="row">
+
+
             <?php foreach ($tasks as $task): ?>
 
 
-          <div class="row">
              <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
-               <img class="card-img-top" src="<?= $task['img']?>">
+               <img class="card-img-top" src="<? echo $task['img']?>">
                 <div class="card-body">
-                    <p class="card-text"><b><?= $task['name']?></b></p
-                    <p class="card-text"><?= $task['text']?></p>
+                    <p class="card-text"><b><? echo $task['name']?></b></p
+                    <p class="card-text"><? echo $task['text']?></p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <a href="show.php?id=<?=$task['id']?>" class="btn btn-sm btn-outline-secondary">Просмотреть</a>
-                      <a href="edit.php?id=<?=$task['id']?>" class="btn btn-sm btn-outline-secondary">Изменить</a>
-                      <a href="delete.php?id=<?=$task['id']?>" class="btn btn-sm btn-outline-secondary" onclick="confirm('Вы уверены?')">Удалить</a>
+                      <a href="show.php?id=<? echo $task['id']?>" class="btn btn-sm btn-outline-secondary">Просмотреть</a>
+                      <a href="edit-form.php?id=<? echo $task['id']?>" class="btn btn-sm btn-outline-secondary">Изменить</a>
+                      <a href="delete.php?id=<? echo $task['id']?>" class="btn btn-sm btn-outline-secondary" onclick="confirm('Вы уверены?')">Удалить</a>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
               <?php endforeach; ?>
+
+            </div>
+
 
             <!--
 
