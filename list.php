@@ -34,9 +34,9 @@ $tasks = $stmt->fetchAll(2);
               <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
             </div>
             <div class="col-sm-4 offset-md-1 py-4">
-              <h4 class="text-white">john@example.com</h4>
+              <h4 class="text-white"><? echo $userMail?></h4>
               <ul class="list-unstyled">
-                <li><a href="#" class="text-white">Выйти</a></li>
+                <li><a href="exit.php" class="text-white" onclick="confirm('Вы уверены?')">Выйти</a></li>
               </ul>
             </div>
           </div>
