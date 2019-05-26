@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+
+if (!empty($_SESSION['userMail'])) {
+    header("Location: list.php");
+}
+?>
 
 <!doctype html>
 <html lang="en">
@@ -30,7 +38,7 @@
           </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
-        <a href="http://localhost/tm/taskmanager/register-form.php">Зарегистрироваться</a>
+        <a href="register-form.php">Зарегистрироваться</a>
         <p class="mt-5 mb-3 text-muted">&copy; 2018-2019</p>
       </form>
     </div>

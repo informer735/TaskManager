@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (empty($_SESSION['userMail'])) {
+    header('Location: login-form.php');
+}
 $userMail = $_SESSION['userMail'];
 
 $pdo = new PDO('mysql:host=localhost; dbname=users', 'root', '');
@@ -78,7 +81,7 @@ $tasks = $stmt->fetchAll(2);
 
              <div class="col-md-4">
               <div class="card mb-4 shadow-sm">
-               <img class="card-img-top" src="<? echo $task['img']?>">
+               <img class="card-img-top"  src="<? echo $task['img']?>">
                 <div class="card-body">
                     <p class="card-text"><b><? echo $task['name']?></b></p
                     <p class="card-text"><? echo $task['text']?></p>

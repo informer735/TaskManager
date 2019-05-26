@@ -1,4 +1,9 @@
 <?php
+session_start();
+
+if (!empty($_SESSION['userMail'])) {
+    header("Location: list.php");
+}
 
 foreach($_POST as $input) {
     if(empty($input)) {

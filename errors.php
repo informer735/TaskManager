@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (empty($_SESSION['userMail'])) {
+    header('Location: login-form.php');
+}
+?>
 
 <!doctype html>
 <html lang="en">
