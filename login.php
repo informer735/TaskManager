@@ -1,19 +1,11 @@
 <?php
-session_start();
+include 'func.php';
 
-if (!empty($_SESSION['userMail'])) {
-    header("Location: list.php");
-}
-foreach($_POST as $input) {
-    if (empty($input)) {
-        include 'error.php';
-        exit;
-    }
-}
+checkLogin(true);
 
-$pdo = new PDO('mysql:host=localhost;dbname=users', 'root', '');
-$sql = 'SELECT id FROM users WHERE password = :password AND email = :email';
-$stmt = $pdo->prepare($sql);
+checkEmptyFields();
+
+$stmt = connectToDb('SELECT id FROM users WHERE password = :password AND email = :email');
 $_POST['password'] = md5($_POST['password']);
 $user = $stmt->execute($_POST);
 

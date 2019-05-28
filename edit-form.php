@@ -1,13 +1,10 @@
 <?php
-session_start();
-if (empty($_SESSION['userMail'])) {
-    header('Location: login-form.php');
-}
+include 'func.php';
+
+checkLogin(false);
 
 $id = $_GET['id'];
-$pdo = new PDO('mysql:host=localhost; dbname=users', 'root', '');
-$sql = "SELECT * FROM tasks WHERE id = $id";
-$stmt = $pdo->prepare($sql);
+$stmt = connectToDb("SELECT * FROM tasks WHERE id = $id");
 $stmt->execute();
 $task = $stmt->fetch();
 ?>
@@ -32,7 +29,7 @@ $task = $stmt->fetch();
     <div class="form-wrapper text-center">
       <form class="form-signin" action="edit.php" method="post" enctype="multipart/form-data">
         <img class="mb-4" src="assets/img/bootstrap-solid.svg" alt="" width="72" height="72">
-        <h1 class="h3 mb-3 font-weight-normal">Добавить запись</h1>
+        <h1 class="h3 mb-3 font-weight-normal">Редактировать запись</h1>
         <label for="inputEmail" class="sr-only">Название</label>
         <input type="text" id="inputEmail" name="name" class="form-control" placeholder="Название" required value="<?echo $task['name']?>">
         <label for="inputEmail" class="sr-only">Описание</label>

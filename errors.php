@@ -1,8 +1,7 @@
 <?php
-session_start();
-if (empty($_SESSION['userMail'])) {
-    header('Location: login-form.php');
-}
+include 'func.php';
+
+checkLogin(false);
 ?>
 
 <!doctype html>

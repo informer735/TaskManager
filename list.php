@@ -1,18 +1,14 @@
 <?php
-session_start();
-if (empty($_SESSION['userMail'])) {
-    header('Location: login-form.php');
-}
+include 'func.php';
+
+checkLogin(false);
+
 $userMail = $_SESSION['userMail'];
 
-$pdo = new PDO('mysql:host=localhost; dbname=users', 'root', '');
-$sql = "SELECT * FROM tasks WHERE user_id = '{$userMail}' ";
-$stmt = $pdo->prepare($sql);
+$stmt = connectToDb("SELECT * FROM tasks WHERE user_id = '{$userMail}'");
 $stmt->execute();
 $tasks = $stmt->fetchAll(2);
 ?>
-
-
 
 <!doctype html>
 <html lang="en">

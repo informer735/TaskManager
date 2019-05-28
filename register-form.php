@@ -1,9 +1,7 @@
 <?php
-session_start();
+include 'func.php';
 
-if (!empty($_SESSION['userMail'])){
-    header("Location: list.php");
-}
+checkLogin(true);
 ?>
 
 <!doctype html>

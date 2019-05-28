@@ -1,14 +1,10 @@
 <?php
-session_start();
-if (empty($_SESSION['userMail'])) {
-    header('Location: login-form.php');
-}
-//соединение с базой
-$pdo = new PDO('mysql:host=localhost; dbname=users', 'root', '');
+include 'func.php';
+
+checkLogin(false);
 
 //поиск записи с удаленной задачей
-$sql ="SELECT * FROM tasks WHERE id = :id";
-$stmt = $pdo->prepare($sql);
+$stmt = connectToDb("SELECT * FROM tasks WHERE id = :id");
 $stmt->execute(['id' => $_GET['id']]);
 $oldImg = $stmt->fetch();
 
@@ -16,8 +12,7 @@ $oldImg = $stmt->fetch();
 unlink($oldImg['img']);
 
 //удаление задачи из базы данных
-$sql = "DELETE FROM tasks WHERE id= :id";
-$stmt = $pdo->prepare($sql);
+$stmt = connectToDb("DELETE FROM tasks WHERE id= :id");
 $stmt->execute(['id' => $_GET['id']]);
 
 header('Location: list.php');
