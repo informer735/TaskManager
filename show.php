@@ -1,13 +1,18 @@
 <?php
-include 'func.php';
+include 'function.php';
+include 'db.php';
 
-checkLogin(false);
+checkNotLogin();
 
+$task = selectTask($pdo);
 
-$id = $_GET['id'];
-$stmt = connectToDb("SELECT * FROM tasks WHERE id = $id");
+/*
+$sql = "SELECT * FROM tasks WHERE id = $id";
+$pdo = new PDO("mysql:host=localhost; dbname=users", 'root', '');
+$stmt = $pdo->prepare($sql);
 $stmt->execute();
 $task = $stmt->fetch();
+*/
 ?>
 
 <!doctype html>

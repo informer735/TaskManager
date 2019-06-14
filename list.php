@@ -1,13 +1,19 @@
 <?php
-include 'func.php';
+include 'function.php';
+include 'db.php';
 
-checkLogin(false);
+checkNotLogin();
 
 $userMail = $_SESSION['userMail'];
 
-$stmt = connectToDb("SELECT * FROM tasks WHERE user_id = '{$userMail}'");
+$tasks = selectAllTasks($pdo, $userMail);
+/*
+$sql = "SELECT * FROM tasks WHERE user_id = '{$userMail}'";
+$pdo = new PDO("mysql:host=localhost; dbname=users", 'root', '');
+$stmt = $pdo->prepare($sql);
 $stmt->execute();
 $tasks = $stmt->fetchAll(2);
+*/
 ?>
 
 <!doctype html>

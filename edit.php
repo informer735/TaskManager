@@ -1,38 +1,49 @@
 <?php
-include "func.php";
+include 'function.php';
+include 'db.php';
 
-// проверка на авторизацию пользователя
-checkLogin(false);
-
-// проверка на пустоту полей
-checkEmptyFields();
+checkNotLogin();
 
 // соединение и обновление базы данных
-$stmt = connectToDb("UPDATE tasks SET name= :name, text= :text WHERE id= :id");
+updateTask($pdo);
+
+/*
+$sql= "UPDATE tasks SET name= :name, text= :text WHERE id= :id";
+$pdo = new PDO("mysql:host=localhost; dbname=users", 'root', '');
+$stmt = $pdo->prepare($sql);
 $stmt->execute($_POST);
+*/
 
 // на случай, если картинки меняется.
 if (!empty($_FILES['userfile']['name'])) {
-
     //поиск старой картинки по id в базе
-    $stmt = connectToDb("SELECT * FROM tasks WHERE id = :id");
+
+    $oldImg =  findImage($pdo, $_POST['id']);
+    /*
+    $sql = "SELECT * FROM tasks WHERE id = :id";
+    $stmt = $pdo->prepare($sql);
     $stmt->execute(['id' => $_POST['id']]);
     $oldImg = $stmt->fetch();
+    */
 
     //удаление старой картинки
-    unlink($oldImg['img']);
+    if (isset($oldImg)) unlink($oldImg['img']);
 
-    // путь к новой картинке
-   $fileName = 'upload/' . $_FILES['userfile']['name'];
-
+    $fileName = newImageName();
    //перемещение новой картинке в папку
    move_uploaded_file($_FILES['userfile']['tmp_name'], $fileName);
 
     //обновление пути к картинке в базе
-   $stmt = connectToDb("UPDATE tasks SET img= :img WHERE id= :id");
+
+    updateImage($pdo, $fileName);
+
+ /*
+   $sql = "UPDATE tasks SET img= :img WHERE id= :id";
+   $stmt = $pdo->prepare($sql);
    $stmt->execute([
        'img' => $fileName,
        'id' => $_POST['id']
     ]);
+ */
 }
 header('Location: list.php');

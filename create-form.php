@@ -1,8 +1,7 @@
 <?php
-include 'func.php';
+include 'function.php';
 
-checkLogin(false);
-
+checkNotLogin();
 ?>
 
 <!doctype html>

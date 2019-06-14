@@ -1,18 +1,32 @@
 <?php
-include 'func.php';
+include 'function.php';
+include 'db.php';
 
-checkLogin(false);
+checkNotLogin();
 
 //поиск записи с удаленной задачей
-$stmt = connectToDb("SELECT * FROM tasks WHERE id = :id");
+
+$oldImg = findImage($pdo, $_GET['id']);
+
+/*$sql = "SELECT * FROM tasks WHERE id = :id";
+$pdo = new PDO("mysql:host=localhost; dbname=users", 'root', '');
+$stmt = $pdo->prepare($sql);
 $stmt->execute(['id' => $_GET['id']]);
 $oldImg = $stmt->fetch();
-
+*/
 // удаление старой картинки с сервера
-unlink($oldImg['img']);
+
+if (isset($oldImg))unlink($oldImg['img']);
 
 //удаление задачи из базы данных
-$stmt = connectToDb("DELETE FROM tasks WHERE id= :id");
+
+deleteTask($pdo);
+
+/*
+$sql = "DELETE FROM tasks WHERE id= :id";
+$pdo = new PDO("mysql:host=localhost; dbname=users", 'root', '');
+$stmt = $pdo->prepare($sql);
 $stmt->execute(['id' => $_GET['id']]);
+*/
 
 header('Location: list.php');

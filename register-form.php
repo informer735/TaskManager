@@ -1,7 +1,7 @@
 <?php
-include 'func.php';
+include 'function.php';
 
-checkLogin(true);
+checkLogin();
 ?>
 
 <!doctype html>

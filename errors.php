@@ -1,7 +1,5 @@
 <?php
-include 'func.php';
 
-checkLogin(false);
 ?>
 
 <!doctype html>
