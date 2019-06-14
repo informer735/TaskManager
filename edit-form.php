@@ -8,13 +8,6 @@ $id = $_GET['id'];
 
 $task = selectTask($pdo);
 
-/*
-$sql = "SELECT * FROM tasks WHERE id = $id";
-$pdo = new PDO("mysql:host=localhost; dbname=users", 'root', '');
-$stmt = $pdo->prepare($sql);
-$stmt->execute();
-$task = $stmt->fetch();
-*/
 ?>
 
 <!doctype html>
