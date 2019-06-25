@@ -1,17 +1,19 @@
 <?php
 $pdo = new PDO("mysql:host=localhost; dbname=users", 'root', '');
 
-
- function createTask($pdo, $userMail, $fileName)
+ function createTask($pdo, $userMail, $fileName, $table)
  {
-    $sql = "INSERT INTO tasks (id, user_id, name, text, img) VALUE (NULL, :user_id, :name, :text, :img)";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute([
-        ':user_id' => $userMail,
-        ':name' => $_POST['name'],
-        ':text' => $_POST['text'],
-        ':img' => $fileName
-    ]);
+     $arr = array_keys($_POST);
+     $keys = implode(', ', $arr);
+     $tags = implode(', :', $arr);
+     $sql = "INSERT INTO $table (id, user_id, img, $keys) VALUE (NULL, :user_id, :img, :$tags)";
+     $stmt = $pdo->prepare($sql);
+     $stmt->execute([
+         ':user_id' => $userMail,
+         ':name' => $_POST['name'],
+         ':text' => $_POST['text'],
+         ':img' => $fileName
+     ]);
  }
 
  function findImage($pdo, $task)
@@ -29,9 +31,15 @@ function deleteTask($pdo)
     $stmt->execute(['id' => $_GET['id']]);
 }
 
-function updateTask($pdo)
+function updateTask($pdo, $table)
 {
-    $sql= "UPDATE tasks SET name= :name, text= :text WHERE id= :id";
+    $arr = array_keys($_POST);
+    $str = '';
+    foreach ($arr as $item){
+        $str .= $item . '= :' . $item . ', ';
+    }
+    $str = substr($str, 0, -2);
+    $sql= "UPDATE $table SET $str WHERE id= :id";
     $stmt = $pdo->prepare($sql);
     $stmt->execute($_POST);
 }

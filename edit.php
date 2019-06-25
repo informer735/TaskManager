@@ -5,7 +5,7 @@ include 'db.php';
 checkNotLogin();
 
 // соединение и обновление базы данных
-updateTask($pdo);
+updateTask($pdo, 'tasks');
 
 // на случай, если картинки меняется.
 if (!empty($_FILES['userfile']['name'])) {

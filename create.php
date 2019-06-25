@@ -10,6 +10,6 @@ $fileName = newImageName();
 
 move_uploaded_file($_FILES['userfile']['tmp_name'], $fileName);
 
-createTask($pdo, $userMail, $fileName);
+createTask($pdo, $userMail, $fileName, 'tasks');
 
 header('Location: list.php');
