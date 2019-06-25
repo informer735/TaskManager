@@ -6,7 +6,7 @@ $pdo = new PDO("mysql:host=localhost; dbname=users", 'root', '');
      $arr = array_keys($_POST);
      $keys = implode(', ', $arr);
      $tags = implode(', :', $arr);
-     $sql = "INSERT INTO $table (id, user_id, img, $keys) VALUE (NULL, :user_id, :img, :$tags)";
+     $sql = "INSERT INTO $table (user_id, img, $keys) VALUE (:user_id, :img, :$tags)";
      $stmt = $pdo->prepare($sql);
      $stmt->execute([
          ':user_id' => $userMail,
@@ -90,9 +90,12 @@ function checkUserFromDb($pdo)
     return $stmt->fetchColumn();
 }
 
-function insertUser($pdo)
+function insertUser($pdo, $table)
 {
-    $sql = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
+    $arr = array_keys($_POST);
+    $keys = implode(', ', $arr);
+    $tags = implode(', :', $arr);
+    $sql = "INSERT INTO $table ($keys) VALUES (:$tags)";
     $stmt = $pdo->prepare($sql);
     $_POST['password'] = md5($_POST['password']);
     $stmt->execute($_POST);

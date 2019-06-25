@@ -15,6 +15,6 @@ if($user) {
 }
 
 //добавление нового пользователя в базу
-insertUser($pdo);
+insertUser($pdo, 'users');
 
 header('Location: login-form.php'); exit;
